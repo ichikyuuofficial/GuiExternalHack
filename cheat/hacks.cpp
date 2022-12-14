@@ -171,7 +171,7 @@ void hacks::VisualThread(const Memory& mem) noexcept
 								continue;
 
 							mem.Write<std::uintptr_t>(globals::clientAddr + offsets::dwForceAttack, 6);
-							std::this_thread::sleep_for(std::chrono::milliseconds(400)); // give delay every single shot .
+							std::this_thread::sleep_for(std::chrono::milliseconds(400));
 							mem.Write<std::uintptr_t>(globals::clientAddr + offsets::dwForceAttack, 4);
 							
 						}
