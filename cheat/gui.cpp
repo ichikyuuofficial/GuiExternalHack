@@ -271,23 +271,14 @@ void gui::Render() noexcept
 		ImGui::Unindent();
 	}
 	
-	ImGui::Checkbox("ESP", &globals::isEsp);
-	if (globals::isEsp)
+
+	if (ImGui::TreeNode("ESP"))
 	{
-		ImGui::Indent();
 		ImGui::Checkbox("ESP Glow", &globals::isEspGlow);
 		if (globals::isEspGlow)
 			ImGui::ColorEdit4("Colors", globals::glowColor);
-		ImGui::Unindent();
+		ImGui::TreePop();
 	}
-	
-	
-	ImGui::NewLine();
-	ImGui::TextColored({ 0.0f, 1.0f, 0.0f, 1.0f }, "[+] NOTE :");
-	ImGui::NewLine();
-	ImGui::Text("- This tools is made for educational purposes only.");
-	ImGui::Text("- I am not responsible for any damage caused by this tool.");
-	ImGui::Text("- Use this tool at your own risk.");
 	
 	ImGui::End();
 	
