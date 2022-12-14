@@ -21,7 +21,7 @@ int __stdcall wWinMain(
 	std::thread(hacks::VisualThread, mem).detach();
 	
 	// create gui
-	gui::CreateHWindow("Helpers Menu");
+	gui::CreateHWindow("Cheat Menu");
 	gui::CreateDevice();
 	gui::CreateImGui();
 
