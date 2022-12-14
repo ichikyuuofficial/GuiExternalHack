@@ -220,16 +220,13 @@ void hacks::VisualThread(const Memory& mem) noexcept
 		/* Bunnyhop */
 		if (globals::isBunnyHop) {
 			
-			const auto localplayerflags = mem.Read<std::int32_t>(localPlayer + offsets::m_fFlags);
-			if (globals::isBunnyHop) {
-				if (GetAsyncKeyState(VK_SPACE))
-					(localplayerflags & (1 << 0)) ?
-					mem.Write<std::uintptr_t>(globals::clientAddr + offsets::dwForceJump, 6) :
-					mem.Write<std::uintptr_t>(globals::clientAddr + offsets::dwForceJump, 4);
-			}
+			const auto onGround = mem.Read<bool>(localPlayer + offsets::m_fFlags);
 
-			std::this_thread::sleep_for(std::chrono::milliseconds(1));
+			if (GetAsyncKeyState(VK_SPACE) && onGround & (1 << 0))
+				mem.Write<BYTE>(globals::clientAddr + offsets::dwForceJump, 6);
 			
+			std::this_thread::sleep_for(std::chrono::milliseconds(5));
+
 		}
 		
 	}
