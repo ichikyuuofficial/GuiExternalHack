@@ -97,14 +97,14 @@ void hacks::VisualThread(const Memory& mem) noexcept
 					continue;
 				
 				/* Eyes position */
-				const auto& localEyePosition = mem.Read<Vector3>(localPlayer + offsets::m_vecOrigin) +
+				const auto localEyePosition = mem.Read<Vector3>(localPlayer + offsets::m_vecOrigin) +
 					mem.Read<Vector3>(localPlayer + offsets::m_vecViewOffset);
 
 				const auto localPlayerId =
 					mem.Read<std::int32_t>(clientState + offsets::dwClientState_GetLocalPlayer);
 
-				const auto& viewAngles = mem.Read<Vector3>(clientState + offsets::dwClientState_ViewAngles);
-				const auto& aimPunch = mem.Read<Vector3>(clientState + offsets::m_aimPunchAngle) * 2;
+				const auto viewAngles = mem.Read<Vector3>(clientState + offsets::dwClientState_ViewAngles);
+				const auto aimPunch = mem.Read<Vector3>(clientState + offsets::m_aimPunchAngle) * 2;
 
 				/* AIMBOT FOV */
 				auto bestFov = 5.f;
@@ -150,17 +150,17 @@ void hacks::VisualThread(const Memory& mem) noexcept
 						if (globals::isTriggerbot) {
 							
 							/* Triggerbot */
-							const auto& localhealth = mem.Read<std::int32_t>(localPlayer + offsets::m_iHealth);
+							const auto localhealth = mem.Read<std::int32_t>(localPlayer + offsets::m_iHealth);
 
 							if (!localhealth)
 								continue;
 
-							const auto& crosshairid = mem.Read<std::int32_t>(localPlayer + offsets::m_iCrosshairId);
+							const auto crosshairid = mem.Read<std::int32_t>(localPlayer + offsets::m_iCrosshairId);
 
 							if (!crosshairid || crosshairid > 64)
 								continue;
 
-							const auto& player = mem.Read<std::uintptr_t>(globals::clientAddr + offsets::dwEntityList + (crosshairid - 1) * 0x10);
+							const auto player = mem.Read<std::uintptr_t>(globals::clientAddr + offsets::dwEntityList + (crosshairid - 1) * 0x10);
 
 							// skip aim for dead players
 							if (!mem.Read<std::int32_t>(player + offsets::m_iHealth))
@@ -196,7 +196,7 @@ void hacks::VisualThread(const Memory& mem) noexcept
 
 			for (auto i = 0; i < 64; ++i)
 			{
-				const auto& EspEntity = mem.Read<std::uintptr_t>(globals::clientAddr + offsets::dwEntityList + (i * 0x10));
+				const auto& EspEntity = mem.Read<std::uintptr_t>(globals::clientAddr + offsets::dwEntityList + i * 0x10);
 
 				if (mem.Read<std::uintptr_t>(EspEntity + offsets::m_iTeamNum) == mem.Read<std::uintptr_t>(localPlayer + offsets::m_iTeamNum))
 					continue;
